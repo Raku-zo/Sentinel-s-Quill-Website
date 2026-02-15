@@ -74,13 +74,13 @@ No installation needed because it’s a static website.
 * **Project Leader:**
  Mark Lein Aberca
 * **Group Members:**
- Ivan Amor
- Lance Jairus Eduardo
- Khalil Josiah Dantes
- Rai Dulguime
- Rassel Morfe
- Koyee Prak
-* Mark Daniel Valencia
+ Ivan Amor,
+ Lance Jairus Eduardo,
+ Khalil Josiah Dantes,
+ Rai Dulguime,
+ Rassel Morfe,
+ Koyee Prak,
+ Mark Daniel Valencia,
 * **Programming Teacher:** Mr. Angelito Salac
 * **Journalism Adviser:** Ms. Landsay Reid
 
