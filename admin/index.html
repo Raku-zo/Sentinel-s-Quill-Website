@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - The Sentinel's Quill</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/x-icon" href="../journalism-logo.png">
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <style>
+    .admin-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      color: var(--primary-green);
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-green);
+    }
+    
+    #editor {
+      height: 300px;
+      background: white;
+    }
+    
+    .editor-wrapper {
+      border: 2px solid #ddd;
+      border-radius: 5px;
+    }
+    
+    .submit-btn {
+      background: var(--primary-green);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .submit-btn:hover {
+      background: var(--secondary-green);
+      transform: translateY(-2px);
+    }
+    
+    .submit-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .success-message {
+      background: #4caf50;
+      color: white;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      display: none;
+    }
+    
+    .error-message {
+      background: #f44336;
+      color: white;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      display: none;
+    }
+    
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: var(--primary-green);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .admin-link {
+      display: inline-block;
+      margin-left: 0.75rem;
+      color: var(--primary-green);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .admin-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-container">
+      <div class="header-top">
+        <img src="/new-school-logo.png" alt="Army's Angels Integrated School" class="logo">
+        <div class="site-title">
+          <h1>The Sentinel's Quill</h1>
+          <p>Army's Angels Integrated School Campus Journalism</p>
+        </div>
+        <img src="/journalism-logo.png" alt="The Sentinel's Quill" class="logo">
+        <a href="../html/index.html" class="admin-link">View Site</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-container">
+    <a href="../html/index.html" class="back-link">← Back to Home</a>
+    <h2 class="page-title">Create New Article</h2>
+    
+    <div id="success-message" class="success-message"></div>
+    <div id="error-message" class="error-message"></div>
+    
+    <form id="article-form" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="title">Article Title *</label>
+        <input type="text" id="title" name="title" required placeholder="Enter article title">
+      </div>
+      
+      <div class="form-group">
+        <label for="category">Category *</label>
+        <select id="category" name="category" required>
+          <option value="">Select a category</option>
+          <optgroup label="News">
+            <option value="news">News (General)</option>
+            <option value="news-campus">News - Campus</option>
+            <option value="news-sports">News - Sports</option>
+            <option value="news-scitech">News - Science & Technology</option>
+            <option value="news-local">News - Local</option>
+            <option value="news-foreign">News - Foreign</option>
+          </optgroup>
+          <option value="feature">Feature</option>
+          <option value="editorial">Editorial</option>
+          <option value="column">Column</option>
+          <option value="photojournalism">Photojournalism</option>
+          <option value="broadcast">Broadcast Media</option>
+          <option value="literary">Literary</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="authorName">Author Name *</label>
+        <input type="text" id="authorName" name="authorName" required placeholder="Enter your name">
+      </div>
+      
+      <div class="form-group">
+        <label for="image">Featured Image (Optional)</label>
+        <input type="file" id="image" name="image" accept="image/*">
+      </div>
+      
+      <div class="form-group">
+        <label>Article Content *</label>
+        <div class="editor-wrapper">
+          <div id="editor"></div>
+        </div>
+      </div>
+      
+      <button type="submit" class="submit-btn">Publish Article</button>
+    </form>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2025 The Sentinel's Quill - Army's Angels Integrated School</p>
+    <p>Campus Journalism | Founded 1998</p>
+  </footer>
+
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <script src="/admin/admin.js"></script>
+</body>
+</html>
