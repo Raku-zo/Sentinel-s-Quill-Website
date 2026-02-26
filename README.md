@@ -101,4 +101,4 @@ If you have suggestions or feedback:
 📧 Email: khaliljosiah06272008@gmail.com
 🏫 School: Army's Angels Integrated School
 
-✨ *Empowering student voices through digital journalism.*
+✨ *Guarded by Truth. Inked with Courage.*
