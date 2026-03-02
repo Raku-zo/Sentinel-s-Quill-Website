@@ -1,76 +1,90 @@
-const quill = new Quill('#editor', {
-  theme: 'snow',
-  modules: {
-    toolbar: [
-      [{ 'header': [1, 2, 3, false] }],
-      ['bold', 'italic', 'underline', 'strike'],
-      ['blockquote', 'code-block'],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      [{ 'indent': '-1'}, { 'indent': '+1' }],
-      ['link', 'image'],
-      ['clean']
-    ]
-  },
-  placeholder: 'Write your article content here...'
-});
+/* ============================================================
+   login.js — Login logic for html/admin-login.html
+   Place this file in: js/login.js
+   The Sentinel's Quill | Army's Angels Integrated School
+   ============================================================ */
 
-const form = document.getElementById('article-form');
-const successMessage = document.getElementById('success-message');
-const errorMessage = document.getElementById('error-message');
-const submitBtn = form.querySelector('.submit-btn');
+const loginBtn = document.getElementById('login-btn');
+const errorMsg = document.getElementById('error-msg');
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  const content = quill.root.innerHTML;
-  const plainText = quill.getText().trim();
-  
-  if (!plainText) {
-    showError('Please write some content for the article.');
+/** Show an error message inside the card */
+function showError(message) {
+  errorMsg.textContent = message;
+  errorMsg.classList.add('visible');
+}
+
+/** Hide the error message */
+function clearError() {
+  errorMsg.textContent = '';
+  errorMsg.classList.remove('visible');
+}
+
+/** Toggle loading state on the button */
+function setLoading(loading) {
+  loginBtn.disabled = loading;
+  loginBtn.textContent = loading ? 'Logging in...' : 'Login';
+}
+
+/** Show a success message then redirect to the publisher dashboard */
+function redirectToDashboard() {
+  loginBtn.disabled = true;
+  loginBtn.textContent = '✓ Login successful! Redirecting...';
+  loginBtn.style.background = '#4caf50';
+
+  setTimeout(() => {
+    window.location.href = '../admin/index.html';
+  }, 1000);
+}
+
+/** Main login handler */
+async function handleLogin() {
+  clearError();
+
+  const username = usernameInput.value.trim();
+  const password = passwordInput.value.trim();
+
+  if (!username || !password) {
+    showError('Please enter both username and password.');
     return;
   }
-  
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Publishing...';
-  
-  const formData = new FormData(form);
-  formData.set('content', content);
-  formData.set('excerpt', plainText.substring(0, 200) + '...');
-  
+
+  setLoading(true);
+
   try {
-    const response = await fetch('/api/articles', {
+    const response = await fetch('/api/login', {
       method: 'POST',
-      body: formData
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
     });
-    
-    const result = await response.json();
-    
-    if (response.ok) {
-      showSuccess('Article published successfully! Redirecting...');
-      form.reset();
-      quill.setContents([]);
-      
-      setTimeout(() => {
-        window.location.href = `/article.html?id=${result.id}`;
-      }, 2000);
+
+    const data = await response.json();
+
+    if (data.success) {
+      redirectToDashboard();
     } else {
-      throw new Error(result.error || 'Failed to publish article');
+      showError(data.message || 'Invalid username or password.');
+      setLoading(false);
     }
-  } catch (error) {
-    showError(error.message);
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Publish Article';
+  } catch {
+    // ── Demo fallback (remove this block once backend is ready) ──
+    if (username === 'admin' && password === 'admin') {
+      redirectToDashboard();
+    } else {
+      showError('Invalid username or password.');
+      setLoading(false);
+    }
+    // ─────────────────────────────────────────────────────────────
   }
+}
+
+// ── Event listeners ──────────────────────────────────────────
+loginBtn.addEventListener('click', handleLogin);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') handleLogin();
 });
 
-function showSuccess(message) {
-  successMessage.textContent = message;
-  successMessage.style.display = 'block';
-  errorMessage.style.display = 'none';
-}
-
-function showError(message) {
-  errorMessage.textContent = message;
-  errorMessage.style.display = 'block';
-  successMessage.style.display = 'none';
-}
+usernameInput.addEventListener('input', clearError);
+passwordInput.addEventListener('input', clearError);

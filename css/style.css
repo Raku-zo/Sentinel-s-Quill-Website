@@ -107,25 +107,32 @@ body {
   list-style: none;
   display: flex;
   justify-content: center;
+  /* allow items to break onto new lines when space is tight */
   flex-wrap: wrap;
-  gap: 0;
+  gap: 0.75rem 1.5rem;
+  align-items: center;
 }
 
 .nav > li {
   position: relative;
+  /* let each item size to its content rather than forcing equal width */
+  flex: 0 1 auto;
+  min-width: 0;
 }
 
 .nav > li > a {
   display: block;
-  padding: 1rem 1.5rem;
+  padding: 0.6rem 0.4rem;
   color: var(--primary-green);
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   transition: all 0.3s ease;
   border-bottom: 3px solid transparent;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .nav > li > a:hover,
@@ -149,6 +156,7 @@ body {
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   z-index: 1000;
   border-radius: 0 0 5px 5px;
+  white-space: nowrap;
 }
 
 .dropdown:hover .dropdown-content {
@@ -195,6 +203,7 @@ body {
 .news-feed {
   display: grid;
   gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
 .article-card {
@@ -357,12 +366,20 @@ body {
     width: 50px;
   }
   
+  /* make navigation items stack on small screens to avoid overlap */
   .nav {
+    display: flex;
     flex-direction: column;
+    gap: 0;
+  }
+  
+  .nav > li {
+    width: 100%;
   }
   
   .nav > li > a {
     padding: 0.75rem 1rem;
+    font-size: 0.9rem;
   }
   
   .dropdown-content {

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - The Sentinel's Quill</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../admin/login.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/x-icon" href="../journalism-logo.png">
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-container">
+      <div class="header-top">
+        <img src="../new-school-logo.png" alt="Army's Angels Integrated School" class="logo"
+             onerror="this.style.display='none'">
+        <div class="site-title">
+          <h1>The Sentinel's Quill</h1>
+          <p>Army's Angels Integrated School Campus Journalism</p>
+        </div>
+        <img src="../journalism-logo.png" alt="The Sentinel's Quill" class="logo"
+             onerror="this.style.display='none'">
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-strip"></div>
+
+  <main class="login-wrapper">
+    <div class="login-card">
+
+      <div class="shield-wrap">
+        <svg class="shield-svg" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 5 L92 22 L92 55 C92 78 72 97 50 105 C28 97 8 78 8 55 L8 22 Z" fill="#d4af37"/>
+          <path d="M50 12 L86 27 L86 55 C86 75 68 92 50 99"
+                fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="3" stroke-linecap="round"/>
+          <rect x="34" y="52" width="32" height="26" rx="3" fill="white"/>
+          <path d="M38 52 L38 43 C38 35 62 35 62 43 L62 52"
+                fill="none" stroke="white" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="50" cy="63" r="4" fill="#d4af37"/>
+          <rect x="48" y="63" width="4" height="7" rx="1" fill="#d4af37"/>
+        </svg>
+      </div>
+
+      <div class="error-msg" id="error-msg"></div>
+
+      <div class="form-group">
+        <input type="text" class="field-input" id="username"
+               placeholder="USERNAME" autocomplete="username">
+      </div>
+
+      <div class="form-group">
+        <input type="password" class="field-input" id="password"
+               placeholder="PASSWORD" autocomplete="current-password">
+      </div>
+
+      <button class="login-btn" id="login-btn">Login</button>
+
+      <a href="../index.html" class="back-link">← Back to Home</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 The Sentinel's Quill – Army's Angels Integrated School</p>
+  </footer>
+
+  <script src="../admin/admin.js"></script>
+
+</body>
+</html>
