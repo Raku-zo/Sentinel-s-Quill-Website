@@ -1,0 +1,33 @@
+ #admin-btn {
+      position: absolute;
+      top: 40px;
+      right: 100px;
+      padding: 0.5rem 1rem;
+      background: var(--primary-green);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none; 
+      z-index: 1000;
+  }
+
+  #login-btn, #logout-btn {
+      margin-left: 15px; 
+      padding: 0.4rem 1rem;
+      background: var(--accent-gold);
+      color: var(--primary-green);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+  }
+
+  #login-btn:hover, #logout-btn:hover {
+      background: var(--light-gold);
+  }
+
+  #username-display {
+      margin-left: 10px;
+      color: white;
+      font-weight: 600;
+  }
