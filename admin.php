@@ -27,33 +27,7 @@ if (isset($_GET['delete_id'])) {
 <link rel="stylesheet" href="css/style.css">
 <link rel="icon" type="image/x-icon" href="journalism-logo.png">
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-<style>
-
-.admin-container { max-width: 900px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-.form-group { margin-bottom: 1.5rem; }
-.form-group label { display: block; font-weight: bold; color: var(--primary-green); margin-bottom: 0.5rem; }
-.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 5px; font-size: 1rem; font-family: inherit; }
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary-green); }
-#editor { height: 300px; background: white; }
-.editor-wrapper { border: 2px solid #ddd; border-radius: 5px; }
-.submit-btn { background: var(--primary-green); color: white; padding: 1rem 2rem; border: none; border-radius: 5px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s ease; }
-.submit-btn:hover { background: var(--secondary-green); transform: translateY(-2px); }
-.submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
-.success-message { background: #4caf50; color: white; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; display: none; }
-.error-message { background: #f44336; color: white; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; display: none; }
-.back-link { display: inline-block; margin-bottom: 1rem; color: var(--primary-green); text-decoration: none; font-weight: bold; }
-.back-link:hover { text-decoration: underline; }
-.admin-link { display: inline-block; margin-left: 0.75rem; color: var(--primary-green); text-decoration: none; font-weight: bold; }
-.admin-link:hover { text-decoration: underline; }
-
-
-.article-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
-.article-table th, .article-table td { border: 1px solid #ddd; padding: 0.75rem; text-align: left; }
-.article-table th { background: var(--primary-green); color: white; }
-.article-table img { max-width: 100px; height: auto; }
-.delete-btn { background: #f44336; color: white; padding: 0.25rem 0.5rem; border: none; border-radius: 3px; cursor: pointer; text-decoration: none; }
-.delete-btn:hover { background: #d32f2f; }
-</style>
+<link rel="stylesheet" href="css/adminpanel.css">
 </head>
 <body>
 <header class="header">
@@ -96,7 +70,11 @@ if (isset($_GET['delete_id'])) {
         <option value="news-foreign">News - Foreign</option>
       </optgroup>
       <option value="feature">Feature</option>
-      <option value="editorial">Editorial</option>
+      <optgroup label="Editorial">
+        <option value="editorial">Editiorial (General)</option>
+        <option value="editorial-cartooning">Editorial - Cartooning</option>
+        <option value="editorial-article">Editorial - Article</option>
+      </optgroup>
       <option value="column">Column</option>
       <option value="photojournalism">Photojournalism</option>
       <option value="broadcast">Broadcast Media</option>
