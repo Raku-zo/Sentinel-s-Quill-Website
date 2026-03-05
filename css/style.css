@@ -41,6 +41,7 @@ body {
   justify-content: space-between;
   padding: 1rem 0;
   border-bottom: 2px solid var(--accent-gold);
+  position: relative;
 }
 
 .logos {
@@ -117,11 +118,11 @@ body {
 
 .nav > li > a {
   display: block;
-  padding: 1rem 1.5rem;
+  padding: 1rem 0.9rem;
   color: var(--primary-green);
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   transition: all 0.3s ease;

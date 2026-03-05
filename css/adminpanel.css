@@ -1,24 +1,216 @@
-.admin-container { max-width: 900px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-.form-group { margin-bottom: 1.5rem; }
-.form-group label { display: block; font-weight: bold; color: var(--primary-green); margin-bottom: 0.5rem; }
-.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 5px; font-size: 1rem; font-family: inherit; }
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary-green); }
-#editor { height: 300px; background: white; }
-.editor-wrapper { border: 2px solid #ddd; border-radius: 5px; }
-.submit-btn { background: var(--primary-green); color: white; padding: 1rem 2rem; border: none; border-radius: 5px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s ease; }
-.submit-btn:hover { background: var(--secondary-green); transform: translateY(-2px); }
-.submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
-.success-message { background: #4caf50; color: white; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; display: none; }
-.error-message { background: #f44336; color: white; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; display: none; }
-.back-link { display: inline-block; margin-bottom: 1rem; color: var(--primary-green); text-decoration: none; font-weight: bold; }
-.back-link:hover { text-decoration: underline; }
-.admin-link { display: inline-block; margin-left: 0.75rem; color: var(--primary-green); text-decoration: none; font-weight: bold; }
-.admin-link:hover { text-decoration: underline; }
+.admin-header-top {
+    justify-content: space-between;
+    gap: 1rem;
+}
 
+.admin-branding {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    min-width: 0;
+}
 
-.article-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
-.article-table th, .article-table td { border: 1px solid #ddd; padding: 0.75rem; text-align: left; }
-.article-table th { background: var(--primary-green); color: white; }
-.article-table img { max-width: 100px; height: auto; }
-.delete-btn { background: #f44336; color: white; padding: 0.25rem 0.5rem; border: none; border-radius: 3px; cursor: pointer; text-decoration: none; }
-.delete-btn:hover { background: #d32f2f; }
+.admin-logo-right {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.view-site-bt {
+    margin-left: 20px;
+}
+
+.view-site-container {
+    max-width: 1200px;
+    margin: 0.75rem auto 0;
+    padding: 0 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.view-site-link {
+    display: inline-block;
+}
+
+.admin-container{
+    max-width: 900px; 
+    margin: 2rem auto; 
+    padding: 2rem; 
+    background: white; 
+    border-radius: 10px; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.form-group{
+    margin-bottom: 1.5rem;
+}
+
+.form-group label{
+    display: block; 
+    font-weight: bold; 
+    color: var(--primary-green); 
+    margin-bottom: 0.5rem;
+}
+
+.form-group input, .form-group select, .form-group textarea{
+    width: 100%; 
+    padding: 0.75rem; 
+    border: 2px solid #ddd; 
+    border-radius: 5px; 
+    font-size: 1rem; 
+    font-family: inherit;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus{
+    outline: none; 
+    border-color: var(--primary-green);
+}
+
+#editor{
+    height: 300px; 
+    background: white;
+}
+
+.editor-wrapper{
+    border: 2px solid #ddd; 
+    border-radius: 5px;
+}
+
+.submit-btn { 
+    background: var(--primary-green); 
+    color: white;
+    padding: 1rem 2rem; 
+    border: none;
+    border-radius: 5px; 
+    font-size: 1.1rem; 
+    font-weight: bold;
+    cursor: pointer; 
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover{
+    background: var(--secondary-green); 
+    transform: translateY(-2px); 
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.view-site-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--accent-gold);
+    color: var(--primary-green);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.view-site-btn:hover {
+    background: var(--light-gold);
+    transform: translateY(-2px);
+}
+
+.success-message {
+    background: #4caf50; 
+    color: white; 
+    padding: 1rem; 
+    border-radius: 5px; 
+    margin-bottom: 1rem; 
+    display: none;
+}
+
+.error-message {
+    background: #f44336; 
+    color: white; 
+    padding: 1rem; 
+    border-radius: 5px; 
+    margin-bottom: 1rem; 
+    display: none;
+}
+
+.back-link {
+    display: inline-block; 
+    margin-bottom: 1rem; 
+    color: var(--primary-green); 
+    text-decoration: none; 
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.admin-link {
+    color: var(--primary-green); 
+    text-decoration: none; 
+    font-weight: bold;
+}
+
+.admin-link:hover {
+    text-decoration: underline;
+}
+
+.article-table {
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 2rem;
+}
+
+.article-table th, .article-table td {
+    border: 1px solid #ddd; 
+    padding: 0.75rem; 
+    text-align: left;
+}
+
+.article-table th {
+    background: var(--primary-green); 
+    color: white;
+}
+
+.article-table img {
+    max-width: 100px; 
+    height: auto;
+}
+
+.delete-btn {
+    background: #f44336; 
+    color: white; 
+    padding: 0.25rem 0.5rem; 
+    border: none; 
+    border-radius: 3px; 
+    cursor: pointer; 
+    text-decoration: none;
+}
+
+.delete-btn:hover {
+    background: #d32f2f;
+}
+
+@media (max-width: 768px) {
+    .admin-header-top {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .admin-branding {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .admin-logo-right {
+        margin-left: 0;
+    }
+
+    .view-site-container {
+        justify-content: center;
+    }
+}

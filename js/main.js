@@ -72,4 +72,31 @@ function createArticleCard(article) {
   `;
 }
 
-document.addEventListener("DOMContentLoaded", loadArticles);
+function updateActiveNav() {
+  const links = document.querySelectorAll('.nav a');
+  if (!links.length) return;
+
+  links.forEach((link) => {
+    try {
+      const linkUrl = new URL(link.href, location.origin);
+      const linkFull = linkUrl.pathname + linkUrl.search;
+      const locFull = location.pathname + location.search;
+
+      if (linkFull === locFull) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    } catch (e) {}
+
+    link.addEventListener('click', () => {
+      links.forEach((l) => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadArticles();
+  updateActiveNav();
+});

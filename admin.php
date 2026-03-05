@@ -39,7 +39,6 @@ if (isset($_GET['delete_id'])) {
       <p>Army's Angels Integrated School Campus Journalism</p>
     </div>
     <img src="journalism-logo.png" alt="The Sentinel's Quill" class="logo">
-    <a href="index.php" class="admin-link">View Site</a>
   </div>
 </div>
 </header>
@@ -95,7 +94,10 @@ if (isset($_GET['delete_id'])) {
       <div id="editor"></div>
     </div>
   </div>
-  <button type="submit" class="submit-btn">Publish Article</button>
+  <div class="button-group">
+    <button type="submit" class="submit-btn">Publish Article</button>
+    <a href="index.php" class="admin-link view-site-btn">View Site</a>
+  </div>
 </form>
 
 <h2 class="page-title">Manage Articles</h2>

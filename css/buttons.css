@@ -1,33 +1,41 @@
- #admin-btn {
-      position: absolute;
-      top: 40px;
-      right: 100px;
-      padding: 0.5rem 1rem;
-      background: var(--primary-green);
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      display: none; 
-      z-index: 1000;
-  }
+#admin-btn {
+    position: absolute;
+    top: 40px;
+    right: 100px;
+    padding: 0.5rem 1rem;
+    background: var(--primary-green);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+    z-index: 1000;
+}
 
-  #login-btn, #logout-btn {
-      margin-left: 15px; 
-      padding: 0.4rem 1rem;
-      background: var(--accent-gold);
-      color: var(--primary-green);
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-  }
+.admin-auth {
+    position: absolute;
+    top: 0.1px;
+    left: 0.1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1001;
+}
 
-  #login-btn:hover, #logout-btn:hover {
-      background: var(--light-gold);
-  }
+#login-btn, #logout-btn {
+    padding: 0.4rem 1rem;
+    background: var(--accent-gold);
+    color: var(--primary-green);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-  #username-display {
-      margin-left: 10px;
-      color: white;
-      font-weight: 600;
-  }
+#login-btn:hover, #logout-btn:hover {
+    background: var(--light-gold);
+}
+
+#username-display {
+    color: white;
+    font-weight: 600;
+}

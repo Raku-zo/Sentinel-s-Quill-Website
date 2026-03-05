@@ -47,13 +47,14 @@ $result = $stmt->get_result();
   <div class="header-container" style="position: relative;">
     <div class="header-top">
       <img src="new-school-logo.png" alt="Army's Angels Integrated School" class="logo">
-
-      <?php if (isset($_SESSION['username'])): ?>
+      <div class="admin-auth">
+        <?php if (isset($_SESSION['username'])): ?>
           <span id="username-display"><?= htmlspecialchars($_SESSION['username']) ?></span>
           <button id="logout-btn" onclick="window.location.href='logout.php'">Sign Out</button>
-      <?php else: ?>
+        <?php else: ?>
           <button id="login-btn" onclick="window.location.href='login.php'">Login / Signup</button>
-      <?php endif; ?>
+        <?php endif; ?>
+      </div>
 
       <div class="site-title">
           <h1>The Sentinel's Quill</h1>
