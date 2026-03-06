@@ -20,6 +20,11 @@ $categoryNames = [
 ];
 
 $categoryFilter = isset($_GET['category']) ? $_GET['category'] : '';
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+$isHomeActive = $categoryFilter === '';
+$isNewsActive = $categoryFilter === 'news' || strpos($categoryFilter, 'news-') === 0;
+$isEditorialActive = $categoryFilter === 'editorial' || strpos($categoryFilter, 'editorial-') === 0;
 
 if ($search != '') {
     $stmt = $conn->prepare("SELECT * FROM news WHERE title LIKE CONCAT('%', ?, '%') OR content LIKE CONCAT('%', ?, '%') ORDER BY created_at DESC");
@@ -189,7 +194,7 @@ $result = $stmt->get_result();
           <a href="index.php?category=news-foreign" class="<?= $categoryFilter === 'news-foreign' ? 'active' : '' ?>">Foreign</a>
         </div>
       </li>
-      <li><a href="index.php?category=feature">Feature</a></li>
+       <li><a href="index.php?category=feature" class="<?= $categoryFilter === 'feature' ? 'active' : '' ?>">Feature</a></li>
       <li class="dropdown">
         <a href="index.php?category=editorial" class="<?= $isEditorialActive ? 'active' : '' ?>">Editorial</a>
         <div class="dropdown-content">
