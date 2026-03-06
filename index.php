@@ -55,7 +55,7 @@ $result = $stmt->get_result();
           <span id="username-display"><?= htmlspecialchars($_SESSION['username']) ?></span>
           <button id="logout-btn" onclick="window.location.href='logout.php'">Sign Out</button>
         <?php else: ?>
-          <button id="login-btn" onclick="window.location.href='login.php'">Login / Signup</button>
+          <button id="login-btn" onclick="window.location.href='login.php'">Login</button>
         <?php endif; ?>
       </div>
 
