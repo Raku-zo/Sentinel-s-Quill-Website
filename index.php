@@ -20,11 +20,16 @@ $categoryNames = [
 ];
 
 $categoryFilter = isset($_GET['category']) ? $_GET['category'] : '';
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
 $isHomeActive = $categoryFilter === '';
 $isNewsActive = $categoryFilter === 'news' || strpos($categoryFilter, 'news-') === 0;
 $isEditorialActive = $categoryFilter === 'editorial' || strpos($categoryFilter, 'editorial-') === 0;
 
-if ($categoryFilter != '') {
+if ($search != '') {
+    $stmt = $conn->prepare("SELECT * FROM news WHERE title LIKE CONCAT('%', ?, '%') OR content LIKE CONCAT('%', ?, '%') ORDER BY created_at DESC");
+    $stmt->bind_param("ss", $search, $search);
+} elseif ($categoryFilter != '') {
     $stmt = $conn->prepare("SELECT * FROM news WHERE category=? ORDER BY created_at DESC");
     $stmt->bind_param("s", $categoryFilter);
 } else {
@@ -41,86 +46,184 @@ $result = $stmt->get_result();
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Sentinel's Quill - Army's Angels Integrated School</title>
 <link rel="stylesheet" href="css/style.css">
-<link rel="icon" type="image/x-icon" href="journalism-logo.png">
 <link rel="stylesheet" href="css/buttons.css">
+<link rel="icon" type="image/x-icon" href="journalism-logo.png">
+<style>
+.search-wrapper {
+  background: #fff;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+.search-container {
+  max-width: 700px;
+  margin: auto;
+  position: relative;
+}
+.search-form {
+  display: flex;
+  border: 2px solid #1a5d1a;
+  border-radius: 30px;
+  overflow: hidden;
+}
+.search-form input {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+.search-form button {
+  background: #1a5d1a;
+  color: white;
+  border: none;
+  padding: 0 20px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.search-form button:hover {
+  background: #2d7a2d;
+}
+#search-suggestions {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  background: white;
+  border: 1px solid #ddd;
+  border-top: none;
+  max-height: 250px;
+  overflow-y: auto;
+  display: none;
+  z-index: 999;
+  border-radius: 0 0 10px 10px;
+}
+.suggestion-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+.suggestion-item:hover {
+  background: #f5f5f5;
+}
+
+/* Added minimal styling for article previews */
+.article-card {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 15px auto;
+  max-width: 900px;
+  overflow: hidden;
+  background: #fff;
+}
+.article-image {
+  width: 200px;
+  object-fit: cover;
+}
+.article-content {
+  padding: 15px;
+}
+.article-content h2 {
+  margin-top: 0;
+}
+.article-content a {
+  color: #1a5d1a;
+  font-weight: bold;
+  text-decoration: none;
+}
+.article-content a:hover {
+  text-decoration: underline;
+}
+</style>
 </head>
 <body>
+
 <header class="header">
   <div class="header-container" style="position: relative;">
     <div class="header-top">
       <img src="new-school-logo.png" alt="Army's Angels Integrated School" class="logo">
-      <?php if (isset($_SESSION['username'])): ?>
+      <div class="admin-auth">
+        <?php if (isset($_SESSION['username'])): ?>
           <span id="username-display"><?= htmlspecialchars($_SESSION['username']) ?></span>
           <button id="logout-btn" onclick="window.location.href='logout.php'">Sign Out</button>
-      <?php else: ?>
+        <?php else: ?>
           <button id="login-btn" onclick="window.location.href='login.php'">Login</button>
-      <?php endif; ?>
+        <?php endif; ?>
+      </div>
+
       <div class="site-title">
           <h1>The Sentinel's Quill</h1>
           <p>Army's Angels Integrated School Campus Journalism</p>
       </div>
       <img src="journalism-logo.png" alt="The Sentinel's Quill" class="logo">
     </div>
+
     <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
       <button id="admin-btn" onclick="window.location.href='admin.php'" style="display:block;">Admin Panel</button>
     <?php endif; ?>
   </div>
 </header>
+
+<div class="search-wrapper">
+  <div class="search-container">
+    <form action="index.php" method="GET" class="search-form">
+      <input 
+        type="text" 
+        name="search" 
+        id="search-input" 
+        placeholder="Search articles..." 
+        autocomplete="off"
+        value="<?= htmlspecialchars($search ?? '') ?>"
+      >
+      <button type="submit">🔍</button>
+    </form>
+    <div id="search-suggestions"></div>
+  </div>
+</div>
+
 <nav class="nav-bar">
   <div class="nav-container">
     <ul class="nav">
-      <li><a href="index.php" class="active">Home</a></li>
+      <li><a href="index.php" class="<?= $isHomeActive ? 'active' : '' ?>">Home</a></li>
       <li class="dropdown">
-        <a href="index.php?category=news">News</a>
+        <a href="index.php?category=news" class="<?= $isNewsActive ? 'active' : '' ?>">News</a>
         <div class="dropdown-content">
-          <a href="index.php?category=news-campus">Campus</a>
-          <a href="index.php?category=news-sports">Sports</a>
-          <a href="index.php?category=news-scitech">Science & Technology</a>
-          <a href="index.php?category=news-local">Local</a>
-          <a href="index.php?category=news-foreign">Foreign</a>
+          <a href="index.php?category=news-campus" class="<?= $categoryFilter === 'news-campus' ? 'active' : '' ?>">Campus</a>
+          <a href="index.php?category=news-sports" class="<?= $categoryFilter === 'news-sports' ? 'active' : '' ?>">Sports</a>
+          <a href="index.php?category=news-scitech" class="<?= $categoryFilter === 'news-scitech' ? 'active' : '' ?>">Science & Technology</a>
+          <a href="index.php?category=news-local" class="<?= $categoryFilter === 'news-local' ? 'active' : '' ?>">Local</a>
+          <a href="index.php?category=news-foreign" class="<?= $categoryFilter === 'news-foreign' ? 'active' : '' ?>">Foreign</a>
         </div>
       </li>
-      <li><a href="index.php?category=feature">Feature</a></li>
+       <li><a href="index.php?category=feature" class="<?= $categoryFilter === 'feature' ? 'active' : '' ?>">Feature</a></li>
       <li class="dropdown">
-        <a href="index.php?category=editorial">Editorial</a>
+        <a href="index.php?category=editorial" class="<?= $isEditorialActive ? 'active' : '' ?>">Editorial</a>
         <div class="dropdown-content">
-          <a href="index.php?category=editorial-cartooning">Cartooning</a>
-          <a href="index.php?category=editorial-article">Article</a>
+          <a href="index.php?category=editorial-cartooning" class="<?= $categoryFilter === 'editorial-cartooning' ? 'active' : '' ?>">Cartooning</a>
+          <a href="index.php?category=editorial-article" class="<?= $categoryFilter === 'editorial-article' ? 'active' : '' ?>">Article</a>
         </div>
       </li>
-      <li><a href="index.php?category=column">Column</a></li>
-      <li><a href="index.php?category=photojournalism">Photojournalism</a></li>
-      <li><a href="index.php?category=broadcast">Broadcast Media</a></li>
-      <li><a href="index.php?category=literary">Literary</a></li>
+      <li><a href="index.php?category=column" class="<?= $categoryFilter === 'column' ? 'active' : '' ?>">Column</a></li>
+      <li><a href="index.php?category=photojournalism" class="<?= $categoryFilter === 'photojournalism' ? 'active' : '' ?>">Photojournalism</a></li>
+      <li><a href="index.php?category=broadcast" class="<?= $categoryFilter === 'broadcast' ? 'active' : '' ?>">Broadcast Media</a></li>
+      <li><a href="index.php?category=literary" class="<?= $categoryFilter === 'literary' ? 'active' : '' ?>">Literary</a></li>
     </ul>
   </div>
 </nav>
-<div class="container">
-  <?php
-    $displayCategory = $categoryFilter != '' ? $categoryNames[$categoryFilter] : 'Latest Updates';
-    echo '<h2 class="page-title">' . $displayCategory . '</h2>';
-  ?>
-  <div id="news-feed" class="news-feed">
-    <?php
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo '<div class="article">';
-            if ($row['image'] != '') {
-                echo '<img src="uploads/' . htmlspecialchars($row['image']) . '" alt="Article Image" class="article-image">';
-            }
-            echo '<h3 class="article-title">' . htmlspecialchars($row['title']) . '</h3>';
-            echo '<p class="article-meta">By ' . htmlspecialchars($row['author']) . ' | Category: ' . htmlspecialchars($categoryNames[$row['category']]) . ' | Published: ' . date('M d, Y', strtotime($row['created_at'])) . '</p>';
-            echo '<div class="article-content">' . $row['content'] . '</div>';
-            echo '</div>';
-        }
-    } else {
-        echo '<p>No articles found in this category.</p>';
-    }
-    ?>
+
+<!-- Articles Listing -->
+<div class="articles-list">
+<?php while($row = $result->fetch_assoc()): ?>
+  <div class="article-card">
+    <img class="article-image" src="uploads/<?= htmlspecialchars($row['image']) ?>" alt="<?= htmlspecialchars($row['title']) ?>">
+    <div class="article-content">
+      <h2><?= htmlspecialchars($row['title']) ?></h2>
+      <p><small><?= date('F j, Y', strtotime($row['created_at'])) ?> | <?= htmlspecialchars($categoryNames[$row['category']] ?? $row['category']) ?></small></p>
+      <p><?= substr(strip_tags($row['content']), 0, 150) ?>...</p>
+      <a href="article.php?id=<?= $row['id'] ?>">Read More</a>
+    </div>
   </div>
+<?php endwhile; ?>
 </div>
-<footer class="footer">
-  <p>&copy; 2026 The Sentinel's Quill - Army's Angels Integrated School</p>
-</footer>
+
 </body>
 </html>
