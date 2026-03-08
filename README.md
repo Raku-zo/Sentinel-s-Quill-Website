@@ -70,7 +70,7 @@ No installation needed because it’s a static website.
  Lance Jairus Eduardo,
  Rai Dulguime,
  Rassel Morfe,
- Khate Ubaldo
+ Khate Ubaldo, 
  Mark Daniel Valencia,
 * **Developers:** Khalil Dantes, Koyee Prak
 * **Programming Teacher:** Mr. Angelito Salac
