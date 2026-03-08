@@ -30,6 +30,7 @@ This website was created as a **school project** to:
 * **HTML**
 * **CSS**
 * **JavaScript**
+* **PHP**
 
 Future plans:
 
@@ -60,27 +61,18 @@ Sentinel-s-Quill-Website
 
 No installation needed because it’s a static website.
 
-## 🔮 Future Improvements
-
-* 👤 Writer and Editor Login System
-* 🗄 Database for Articles
-* 💬 Comment Section
-* 🔍 Search Feature
-* 📢 Announcement Dashboard
-* 📱 Mobile App Version
-
 ## 👥 Contributors
 
 * **Project Leader:**
- Mark Lein Aberca
+ Lein Aberca
 * **Group Members:**
  Ivan Amor,
  Lance Jairus Eduardo,
- Khalil Josiah Dantes,
  Rai Dulguime,
  Rassel Morfe,
- Koyee Prak,
+ Khate Ubaldo
  Mark Daniel Valencia,
+* **Developers:** Khalil Dantes, Koyee Prak
 * **Programming Teacher:** Mr. Angelito Salac
 * **Journalism Adviser:** Ms. Landsay Reid
 
